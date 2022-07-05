@@ -1,0 +1,51 @@
+<%= yield %>
+
+<div class= "h-full">
+  <div class= "flex nt-10 justify-center self-center">
+    <div class = "w-full max-w-xs">
+      <div class= "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <%= simple_form_for @daily_workout do |f| %>
+        <% input_html_class = "focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none" %> 
+        <%= f.input :focus %> 
+        <%= f.simple_fields_for :lifts do |l| %>
+        <div id = "fieldsetContainer">
+          <fieldset id = '0' class= "text-indigo-500">
+            <%= l.input: name %>
+            <%= l.input: sets %>
+            <%= l.input: reps %>
+        <% end %>
+        </fieldset>
+        </div>
+        <%= f.button: submit %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+class DailyWorkoutsController < ApplicationController
+  def new
+    @daily_workout = DailyWorkout.new
+    @daily_workout.lifts.build
+  end
+
+  def create
+    @daily_workout = DailyWorkout.create(daily_workout_params)
+    if @daily_workout.save
+      flash[:success] = "A New Daily Workout Was Created"
+      redirect_to root_path
+    else
+      render :new
+    end
+    
+  end
+  
+  private
+  
+  def daily_workout_params
+    params.require(:daily_workout).permit(:focus, lifts_attributes: %i[name sets reps])
+  end
+
+
+end
