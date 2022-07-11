@@ -3,11 +3,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def show
+    @user = User.find(params[:id])
+  end
+  
   def create # form_with post request goes here
      @user = User.new(user_params) # form_with helper passes a params hashmap
       if @user.save # Handle a successful save to DB
-      
-       
+        render 'show'
       else
         render 'new'
       end
@@ -21,4 +24,4 @@ class UsersController < ApplicationController
     
     
     
-  end
+end

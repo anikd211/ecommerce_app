@@ -11,8 +11,12 @@ test 'invalid signup information' do
                             password: "foo",
                             password_confirmation: "bar" } }
 end
-assert_template 'users/new'
+    assert_template 'users/new'
+    assert_template'shared/_error_messages'
+    assert_select 'div.bg-red-100', 1
 end
+
+
 
     
     

@@ -1,17 +1,28 @@
 
-
 <% if @user.errors.any? %>
-<div>
-<div>
-The form contains <%= pluralize(@user.errors.count, "error") %>.
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+<strong class="font-bold">The form contains <%= pluralize(@user.errors.count, "error") %>.</strong>
 </div>
-<ul>
-<% @user.errors.full_messages.each do |msg| %>
-<li><%= msg %></li>
+
+ 
+ 
+  <div>
+    <span class="font-medium text-red-100">
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+                                        <% end %>
+    </ul>
+</span> 
+  </div>
+ 
+
+
+
+
 <% end %>
-</ul>
-</div>
-<% end %>
+
+
 
 
 
